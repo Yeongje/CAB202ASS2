@@ -1,0 +1,101 @@
+#include <stdlib.h>
+#include <math.h>
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdio.h>
+
+#include "ascii_font.h"
+#include "cpu_speed.h"
+#include "lcd.h"
+#include "graphics.h"
+#include "sprite.h"
+
+unsigned char score5[]= 
+{ 0b00000000,
+  0b01111110,
+  0b01000000,
+  0b01111110,
+  0b00000010,
+  0b01111110,
+  0b00000000,
+  0b00000000};
+unsigned char score4[]= 
+{ 0b00000000,
+  0b01001000,
+  0b01001000,
+  0b01111110,
+  0b00001000,
+  0b00001000,
+  0b00000000,
+  0b00000000};
+unsigned char score3[]= 
+{ 0b00000000,
+  0b01111110,
+  0b00000010,
+  0b01111110,
+  0b00000010,
+  0b01111110,
+  0b00000000,
+  0b00000000};
+unsigned char score2[]= 
+{ 0b00000000,
+  0b01111110,
+  0b00000010,
+  0b01111110,
+  0b01000000,
+  0b01111110,
+  0b00000000,
+  0b00000000};
+unsigned char score1[]= 
+{ 0b00000000,
+  0b00111100,
+  0b00010000,
+  0b00010000,
+  0b00010000,
+  0b00111100,
+  0b00000000,
+  0b00000000};
+
+unsigned char snake[]= 
+{ 0b00000000,
+  0b00000000,
+  0b00010000,
+  0b00111000,
+  0b00010000,
+  0b00000000,
+  0b00000000,
+  0b00000000};
+
+
+int lives;
+
+int main(void) 
+{
+	// Set the CPU speed to 8MHz (you must also be compiling at 8MHz)
+	set_clock_speed(CPU_8MHz);
+
+	lcd_init(LCD_DEFAULT_CONTRAST);
+	clear_screen();
+
+	draw_string(2,LCD_Y/2 -3,"YeongJe N8923108");
+	show_screen();
+	_delay_ms(1000);
+	clear_screen();
+	
+    Sprite sco5;
+	init_sprite(&sco5, 7, 0, 8, 8,score5);
+	draw_sprite(&sco5);
+
+	Sprite sna;
+	init_sprite(&sna,10,10,4,4,snake);
+	draw_sprite(&sna);
+	
+	lives =0;
+	draw_char(0,0,lives);
+	
+	show_screen();
+	
+	return 0;
+
+}
